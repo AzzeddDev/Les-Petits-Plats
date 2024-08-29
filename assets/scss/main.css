@@ -1,3 +1,155 @@
+body {
+  font-family: "Anton", sans-serif;
+}
 
+body {
+  background: #EDEDED;
+}
+
+/** Hero **/
+.hero {
+  display: flex;
+  height: 92vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../../assets/img/Recette05.jpg");
+  background-size: cover;
+  margin-top: -87px;
+}
+
+.contentHero {
+  z-index: 5;
+}
+
+.hero:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+}
+
+h1 {
+  color: #FFD15B;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 66.24px;
+  text-align: center;
+}
+
+.searchBar {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+.searchBar__input {
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21.86px;
+  text-align: left;
+  padding: 18px 24px;
+  border-radius: 10px;
+}
+.searchBar__button {
+  position: absolute;
+  padding: 12px 15px 12px 17px;
+  background-color: #000;
+  border: none;
+  border-radius: 10px;
+  right: 7px;
+}
+.searchBar__button:hover {
+  background-color: #e1e5e8;
+}
+.searchBar__button:hover i {
+  color: #1B1B1B;
+}
+.searchBar__button i {
+  color: white;
+}
+
+/** Cards **/
+.grid {
+  padding: 25px 0;
+}
+
+.recipe-card {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.recipe-card .infos {
+  padding: 26px;
+}
+.recipe-card img {
+  width: 100%;
+  height: 200px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+.recipe-card h2 {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27.1px;
+  text-align: left;
+}
+.recipe-card h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 19.12px;
+  text-align: left;
+  color: #1B1B1B;
+  margin: 0;
+}
+.recipe-card .description {
+  color: #1B1B1B;
+  margin-bottom: 20px;
+}
+.recipe-card p {
+  font-family: "Manrope", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19.12px;
+  text-align: left;
+  color: #7A7A7A;
+  margin: 0;
+}
+.recipe-card .ingredientsCol {
+  padding-bottom: 12px;
+}
+.recipe-card ul {
+  font-size: 16px;
+  margin-top: 10px;
+  list-style: none;
+  padding-left: 0;
+}
+.recipe-card .titreContenu {
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16.39px;
+  letter-spacing: 0.09em;
+  text-align: left;
+  color: #7A7A7A;
+  text-transform: uppercase;
+}
+
+/** Navbar **/
+nav {
+  position: relative;
+  z-index: 5;
+}
+
+.logoNav {
+  font-size: 26px;
+  color: #fff;
+  text-decoration: none;
+}
 
 /*# sourceMappingURL=main.css.map */
