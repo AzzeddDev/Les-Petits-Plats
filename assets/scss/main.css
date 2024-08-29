@@ -71,6 +71,16 @@ h1 {
   color: white;
 }
 
+.filterResult {
+  padding-top: 35px;
+  padding-bottom: 50px;
+}
+.filterResult .numberFound {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 31.61px;
+}
+
 /** Cards **/
 .grid {
   padding: 25px 0;
