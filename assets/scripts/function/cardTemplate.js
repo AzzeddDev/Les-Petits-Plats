@@ -1,4 +1,4 @@
-export function recipeTemplate(recipe) {
+export function cardTemplate(recipe) {
     const maxLength = 135
 
     // col div
@@ -15,8 +15,12 @@ export function recipeTemplate(recipe) {
 
     // img
     const img = document.createElement("img")
-    img.src = `assets/img/${recipe.image}`
+
+    // changer extension img a .webp
+    const imagePath = recipe.image.replace(/\.[^/.]+$/, ".webp")
+    img.src = `assets/img/webp/${imagePath}`
     img.alt = recipe.name
+    img.loading = "lazy"
 
     // title
     const title = document.createElement("h2")
@@ -37,7 +41,7 @@ export function recipeTemplate(recipe) {
 
     // ingredients loop
     const ingredientsList = document.createElement("div")
-    ingredientsList.className = "row"
+    ingredientsList.className = "d-flex flex-wrap"
     recipe.ingredients.forEach(ingredient => {
         const ingredientCol = document.createElement("div")
         ingredientCol.className = "col-6 ingredientsCol"
@@ -50,14 +54,12 @@ export function recipeTemplate(recipe) {
         ingredientsList.appendChild(ingredientCol).appendChild(ingredientItem)
     })
 
-    // Append all elements to the card
     recipeCard.appendChild(img)
     recipeCard.appendChild(infoDiv).appendChild(title)
     recipeCard.appendChild(infoDiv).appendChild(recette)
     recipeCard.appendChild(infoDiv).appendChild(description)
     recipeCard.appendChild(infoDiv).appendChild(ingredientsList)
 
-    // Append card to the column div
     div.appendChild(recipeCard)
 
     return div
