@@ -1,3 +1,8 @@
+/**
+ * function pour l'affichage des recettes
+ * @param recipes
+ * @param createCardRecipe
+ */
 export function displayRecipes(recipes, createCardRecipe) {
     const recipesContainer = document.getElementById("recipe-container")
 

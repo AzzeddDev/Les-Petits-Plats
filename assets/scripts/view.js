@@ -5,19 +5,29 @@ import { displayRecipes } from "./function/displayRecipes.js"
 
 export class View {
     constructor() {
-        // afficher les recettes
-        displayRecipes(recipes, this.createCardRecipe.bind(this))
+        /**
+         * afficher les recettes
+         */
+        displayRecipes(recipes, this.createCardRecipe)
 
-        // afficher les filtres
+        /**
+         * afficher les filtres
+         */
         this.getDropDowns()
     }
 
-    // créer carte de recette
+    /**
+     * créer carte de recette
+     * @param recipe
+     * @returns {*}
+     */
     createCardRecipe(recipe) {
         return cardTemplate(recipe)
     }
 
-    // créer les dropdowns
+    /**
+     * créer les dropdowns
+     */
     getDropDowns() {
         createDropDown(this, "Ingredients")
         createDropDown(this, "Appliances")

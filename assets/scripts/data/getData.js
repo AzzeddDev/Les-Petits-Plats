@@ -1,6 +1,9 @@
 import { recipes } from "./recipes.js"
 
-// récupérer les ingrédients uniques
+/**
+ * récupérer les ingrédients
+ * @returns {any[]}
+ */
 export function getIngredients() {
     const ingredientsSet = new Set()
 
@@ -13,7 +16,10 @@ export function getIngredients() {
     return Array.from(ingredientsSet)
 }
 
-// récupérer les appareils uniques
+/**
+ * récupérer les appareils
+ * @returns {any[]}
+ */
 export function getAppliances() {
     const appliancesSet = new Set()
 
@@ -24,7 +30,10 @@ export function getAppliances() {
     return Array.from(appliancesSet)
 }
 
-// récupérer les ustensiles uniques
+/**
+ * récupérer les ustensiles
+ * @returns {any[]}
+ */
 export function getUstensils() {
     const ustensilsSet = new Set()
 

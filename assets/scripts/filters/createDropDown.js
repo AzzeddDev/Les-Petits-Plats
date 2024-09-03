@@ -27,8 +27,6 @@ export function createDropDown(viewInstance, type) {
         itemsList = getUstensils()
     }
 
-    console.log(itemsList)
-
     // boucle pour afficher en liste
     itemsList.forEach(item => {
         const option = document.createElement("option")
