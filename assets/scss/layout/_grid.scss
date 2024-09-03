@@ -3,11 +3,17 @@
   padding: 25px 0;
 }
 
+#recipe-container {
+  --bs-gutter-x: 2rem;
+  --bs-gutter-y: 2rem;
+}
+
 .recipe-card {
   background-color: #fff;
   border-radius: 8px;
   width: 100%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 34px 30px #0000000A;
+
 
   & .infos {
     padding: 26px;
@@ -26,6 +32,8 @@
     font-weight: 400;
     line-height: 27.1px;
     text-align: left;
+    margin-bottom: 24px;
+    margin-top: 6px;
   }
 
   & h3 {
