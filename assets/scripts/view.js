@@ -1,26 +1,15 @@
-// view.js
+import { recipes } from "./data/recipes.js"
 import { cardTemplate } from "./function/cardTemplate.js"
 import { createDropDown } from "./filters/createDropDown.js"
-import { recipes } from "./data/recipes.js"
+import { displayRecipes } from "./function/displayRecipes.js"
 
 export class View {
     constructor() {
-        this.displayRecipes(recipes)
+        // afficher les recettes
+        displayRecipes(recipes, this.createCardRecipe.bind(this))
+
+        // afficher les filtres
         this.getDropDowns()
-    }
-
-    // afficher toutes les recettes
-    displayRecipes(recipes) {
-        const recipesContainer = document.getElementById("recipe-container")
-
-        // vider l'HTML
-        recipesContainer.innerHTML = ""
-
-        // boucle recettes
-        recipes.forEach(recipe => {
-            const recipeElement = this.createCardRecipe(recipe)
-            recipesContainer.appendChild(recipeElement)
-        })
     }
 
     // créer carte de recette
@@ -31,7 +20,7 @@ export class View {
     // créer les dropdowns
     getDropDowns() {
         createDropDown(this, "Ingredients")
-        createDropDown(this, "Appliance")
+        createDropDown(this, "Appliances")
         createDropDown(this, "Ustensils")
     }
 }
