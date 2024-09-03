@@ -21,7 +21,7 @@ export function createDropDown(viewInstance, type) {
     let itemsList = []
     if (type === "Ingredients") {
         itemsList = getIngredients()
-    } else if (type === "Appliance") {
+    } else if (type === "Appliances") {
         itemsList = getAppliances()
     } else if (type === "Ustensils") {
         itemsList = getUstensils()
