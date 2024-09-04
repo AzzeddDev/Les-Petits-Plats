@@ -81,6 +81,22 @@ h1 {
   line-height: 31.61px;
 }
 
+.filters {
+  display: flex;
+  gap: 20px;
+}
+.filters .dropdown {
+  background-color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 15px;
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21.86px;
+  text-align: left;
+}
+
 /** Cards **/
 .grid {
   padding: 25px 0;

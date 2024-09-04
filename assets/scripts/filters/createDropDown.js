@@ -11,11 +11,8 @@ export function createDropDown(viewInstance, type) {
     const select = document.createElement("select")
     select.className = "dropdown"
 
-    // créer le dropdown avec une option par défaut
-    const defaultOption = document.createElement("option")
-    defaultOption.value = ""
-    defaultOption.textContent = type
-    select.appendChild(defaultOption)
+    // créer le dropdown avec une option
+    select.innerHTML = `<option value="">${type}</option>`
 
     // récupérer la liste des éléments dans un tableau
     let itemsList = []
@@ -29,10 +26,12 @@ export function createDropDown(viewInstance, type) {
 
     // boucle pour afficher en liste
     itemsList.forEach(item => {
-        const option = document.createElement("option")
-        option.value = item
-        option.textContent = item
-        select.appendChild(option)
+        select.innerHTML += `<option value="${item}">${item}</option>`
+
+        // const option = document.createElement("option")
+        // option.value = item
+        // option.textContent = item
+        // select.appendChild(option)
     })
 
     // append le dropdown à la div
