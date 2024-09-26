@@ -3,7 +3,7 @@ export function cardTemplate(recipe) {
 
     // col div
     const div = document.createElement("div")
-    div.className = "col-4"
+    div.className = "col-lg-4 col-md-6 col-sm-12"
 
     // card
     const recipeCard = document.createElement("div")
