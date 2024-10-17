@@ -19,6 +19,24 @@
     padding: 26px;
   }
 
+  & .divImg {
+    position: relative;
+  }
+
+  & .timer {
+    position: absolute;
+    background: #FFD15B;
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16.39px;
+    text-align: center;
+    right: 12px;
+    top: 12px;
+    padding: 5px 15px;
+    border-radius: 14px;
+  }
+
   & img {
     width: 100%;
     height: 200px;

@@ -60,9 +60,10 @@ h1 {
   border: none;
   border-radius: 10px;
   right: 7px;
+  transition: 0.25s all ease-in-out;
 }
 .searchBar__button:hover {
-  background-color: #e1e5e8;
+  background-color: #FFD15B;
 }
 .searchBar__button:hover i {
   color: #1B1B1B;
@@ -87,8 +88,10 @@ h1 {
 }
 .filters .dropdown {
   cursor: pointer;
+  z-index: 99;
 }
 .filters .type {
+  display: flex;
   background-color: #fff;
   border: none;
   border-radius: 6px;
@@ -100,6 +103,9 @@ h1 {
   height: fit-content;
   width: 200px;
   font-weight: 700;
+  z-index: 99;
+  justify-content: space-between;
+  align-items: center;
 }
 .filters .hiddenList {
   display: none;
@@ -113,7 +119,12 @@ h1 {
   overflow: auto;
   width: 100%;
 }
+.filters .hiddenList ul {
+  padding: 0;
+  margin: 0;
+}
 .filters .hiddenList li {
+  list-style: none;
   padding: 0 15px;
 }
 .filters .hiddenList li:hover {
@@ -121,6 +132,84 @@ h1 {
 }
 .filters .show {
   display: block;
+}
+.filters .dropdown-container {
+  margin-bottom: 20px;
+}
+
+.error-message {
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: red;
+  margin-bottom: 5px;
+  height: 18px !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.selectionDisplay {
+  display: flex;
+  gap: 12px;
+}
+.selectionDisplay .itemFilterSelectedDiv {
+  display: flex;
+  gap: 12px;
+}
+.selectionDisplay .selectedItem {
+  display: flex;
+  background: #FFD15B;
+  gap: 10px;
+  padding: 14px 14px 15px 22px;
+  border-radius: 8px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+.selectionDisplay .xMark {
+  display: flex;
+  align-items: center;
+  padding: 0 5.25px;
+  cursor: pointer;
+}
+.selectionDisplay .xMark i {
+  padding-top: 4px;
+  font-size: 18px;
+}
+
+.searchContainer {
+  padding: 0 15px;
+  margin-bottom: 14px;
+}
+.searchContainer .searchFlex {
+  display: flex;
+  border: 1px solid #C6C6C6;
+  border-radius: 6px;
+  align-items: center;
+  padding: 8px;
+}
+.searchContainer .search-input {
+  display: flex;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+.searchContainer .search-input:hover {
+  border-color: #FFD15B;
+}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.fa-chevron-down {
+  transition: transform 0.3s ease;
 }
 
 /** Cards **/
@@ -141,6 +230,22 @@ h1 {
 }
 .recipe-card .infos {
   padding: 26px;
+}
+.recipe-card .divImg {
+  position: relative;
+}
+.recipe-card .timer {
+  position: absolute;
+  background: #FFD15B;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16.39px;
+  text-align: center;
+  right: 12px;
+  top: 12px;
+  padding: 5px 15px;
+  border-radius: 14px;
 }
 .recipe-card img {
   width: 100%;
