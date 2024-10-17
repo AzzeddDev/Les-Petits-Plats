@@ -32,14 +32,19 @@ export class View {
      * créer les dropdowns
      */
     getDropDowns() {
-        let dropdownIngredient = new Dropdown((type, selectedText) => {this.updateSelectedItems(type, selectedText)})
-        dropdownIngredient.createDropDown(this, "Ingredients")
-        let dropdownAppliance = new Dropdown((type, selectedText) => {this.updateSelectedItems(type, selectedText)})
-        dropdownAppliance.createDropDown(this, "Appliances")
-        let dropdownUstensils = new Dropdown((type, selectedText) => {this.updateSelectedItems(type, selectedText)})
-        dropdownUstensils.createDropDown(this, "Ustensils")
+        let dropdownIngredient = new Dropdown("Ingredients",(type, selectedText) => {this.updateSelectedItems(type, selectedText)})
+        dropdownIngredient.createDropDown(this)
+        let dropdownAppliance = new Dropdown("Appliances",(type, selectedText) => {this.updateSelectedItems(type, selectedText)})
+        dropdownAppliance.createDropDown(this)
+        let dropdownUstensils = new Dropdown("Ustensils",(type, selectedText) => {this.updateSelectedItems(type, selectedText)})
+        dropdownUstensils.createDropDown(this)
     }
 
+    /**
+     * fonctionne pour mettre a jour les item sélectionner
+     * @param type
+     * @param selectedText
+     */
     updateSelectedItems(type, selectedText) {
         switch (type) {
             case "Ingredients":
@@ -52,13 +57,20 @@ export class View {
                 this.selectedUstensilsList.push(selectedText)
                 break
         }
-        console.log(this.selectedUstensilsList, this.selectedIngredientsList, this.selectedApplianceList)
+
+        console.log('Ingredients List:', this.selectedIngredientsList)
+        console.log('Appliances List:', this.selectedApplianceList)
+        console.log('Ustensils List:', this.selectedUstensilsList)
+
+        // lancer vers la fonction qui s'occupe des filtres
+        this.filterRecipes()
     }
 
-    // TODO: update l'affichage des lists dans l HTML
-    // TODO: éviter les doublon
-    // TODO: commencer la recherche dans la liste
-
+    /**
+     * Afficher les recettes
+     * @param recipes
+     * @param createCardRecipe
+     */
     displayRecipes(recipes, createCardRecipe) {
         const recipesContainer = document.getElementById("recipe-container")
 
@@ -70,5 +82,50 @@ export class View {
             const recipeElement = createCardRecipe(recipe)
             recipesContainer.appendChild(recipeElement)
         })
+
+        this.showNumberRecipes(recipes)
+    }
+
+    filterRecipes() {
+        let filteredRecipes = recipes
+
+        // je filtre par ingredients
+        if (this.selectedIngredientsList.length > 0) {
+            filteredRecipes = filteredRecipes.filter(recipe =>
+                this.selectedIngredientsList.every(ingredient =>
+                    recipe.ingredients.some(recIng => recIng.ingredient.includes(ingredient))
+                )
+            )
+        }
+
+        // je filtre par appareil
+        if (this.selectedApplianceList.length > 0) {
+            filteredRecipes = filteredRecipes.filter(recipe =>
+                this.selectedApplianceList.includes(recipe.appliance)
+            )
+        }
+
+        // je filtre par ustensiles
+        if (this.selectedUstensilsList.length > 0) {
+            filteredRecipes = filteredRecipes.filter(recipe =>
+                this.selectedUstensilsList.every(ustensil =>
+                    recipe.ustensils.includes(ustensil)
+                )
+            )
+        }
+
+        console.log(filteredRecipes, 'Filtered Recipes')
+        console.log(recipes, 'Recipes')
+
+        // afficher les recettes filtrées
+        this.displayRecipes(filteredRecipes, this.createCardRecipe)
+    }
+
+    showNumberRecipes(recipes) {
+        const numberDiv = document.querySelector('.numberFound')
+
+        if (numberDiv) {
+            numberDiv.textContent = `${recipes.length} Recettes`
+        }
     }
 }
