@@ -14,7 +14,14 @@ export function cardTemplate(recipe) {
     infoDiv.className = "infos"
 
     // img
+    const divImg = document.createElement("div")
     const img = document.createElement("img")
+    divImg.className = "divImg"
+
+    // timer
+    const timer = document.createElement("div")
+    timer.className = "timer"
+    timer.textContent = recipe.time + "min"
 
     // changer extension img a .webp
     const imagePath = recipe.image.replace(/\.[^/.]+$/, ".webp")
@@ -54,7 +61,8 @@ export function cardTemplate(recipe) {
         ingredientsList.appendChild(ingredientCol).appendChild(ingredientItem)
     })
 
-    recipeCard.appendChild(img)
+    recipeCard.appendChild(divImg).appendChild(timer)
+    recipeCard.appendChild(divImg).appendChild(img)
     recipeCard.appendChild(infoDiv).appendChild(title)
     recipeCard.appendChild(infoDiv).appendChild(recette)
     recipeCard.appendChild(infoDiv).appendChild(description)
