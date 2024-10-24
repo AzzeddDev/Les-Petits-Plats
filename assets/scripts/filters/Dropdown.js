@@ -172,8 +172,6 @@ export default class Dropdown {
         // callback
         this.callback(this.type, selectedText)
 
-        // console.log(this.callback(this.type, selectedText))
-
         // mettre a jour l'item sélectionner
         this.updateItemsList(this.itemFilterSelectedDiv)
     }
@@ -228,8 +226,14 @@ export default class Dropdown {
 
         // mettre a jour l'item list
         this.updateItemsList(selectionDisplay)
+
+        // appeler le callback
+        this.callback(this.type, itemText, true)
     }
 
+    /**
+     * fonction pour filtrer les items
+     */
     filterItemsList() {
         const searchInput = document.querySelector(".search-input")
 
