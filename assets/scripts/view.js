@@ -67,13 +67,13 @@ export class View {
         } else {
             switch (type) {
                 case "Ingredients":
-                    this.selectedIngredientsList = this.selectedIngredientsList.filter((text) => text != selectedText)
+                    this.selectedIngredientsList = this.selectedIngredientsList.filter((text) => text !== selectedText)
                     break
                 case "Appliances":
-                    this.selectedApplianceList = this.selectedApplianceList.filter((text) => text != selectedText)
+                    this.selectedApplianceList = this.selectedApplianceList.filter((text) => text !== selectedText)
                     break
                 case "Ustensils":
-                    this.selectedUstensilsList = this.selectedUstensilsList.filter((text) => text != selectedText)
+                    this.selectedUstensilsList = this.selectedUstensilsList.filter((text) => text !== selectedText)
                     break
             }
         }
@@ -94,14 +94,22 @@ export class View {
     displayRecipes(recipes, createCardRecipe) {
         const recipesContainer = document.getElementById("recipe-container")
 
-        // vider l'HTML
-        recipesContainer.innerHTML = ""
+        // afficher un message si y a 0 recettes
+        if (recipes.length === 0) {
+            recipesContainer.innerHTML =
+                `
+                    <p class="no-recipe-message">Aucune recette ne correspond à votre recherche.</p>
+                `
+        } else {
+            // vider l'HTML
+            recipesContainer.innerHTML = ""
 
-        // boucle recettes
-        recipes.forEach(recipe => {
-            const recipeElement = createCardRecipe(recipe)
-            recipesContainer.appendChild(recipeElement)
-        })
+            // boucle recettes
+            recipes.forEach(recipe => {
+                const recipeElement = createCardRecipe(recipe)
+                recipesContainer.appendChild(recipeElement)
+            })
+        }
 
         this.showNumberRecipes(recipes)
     }
@@ -109,15 +117,27 @@ export class View {
     filterRecipes() {
         let filteredRecipes = recipes
 
-        // je filtre par ingredients
+        filteredRecipes = this.filteredByIngredients(filteredRecipes)
+        filteredRecipes = this.filteredByAppliance(filteredRecipes)
+        filteredRecipes = this.filteredByUstensils(filteredRecipes)
+        filteredRecipes = this.filteredBySearchInput(filteredRecipes)
+
+        // afficher les recettes filtrées
+        this.displayRecipes(filteredRecipes, this.createCardRecipe)
+    }
+
+    filteredByIngredients(filteredRecipes) {
         if (this.selectedIngredientsList.length > 0) {
-            filteredRecipes = filteredRecipes.filter(recipe =>
+            return filteredRecipes.filter(recipe =>
                 this.selectedIngredientsList.every(ingredient =>
                     recipe.ingredients.some(recIng => recIng.ingredient.includes(ingredient))
                 )
             )
         }
+        return filteredRecipes
+    }
 
+    filteredByAppliance(filteredRecipes) {
         // je filtre par appareil
         if (this.selectedApplianceList.length > 0) {
             filteredRecipes = filteredRecipes.filter(recipe =>
@@ -125,6 +145,10 @@ export class View {
             )
         }
 
+        return filteredRecipes
+    }
+
+    filteredByUstensils(filteredRecipes) {
         // je filtre par ustensiles
         if (this.selectedUstensilsList.length > 0) {
             filteredRecipes = filteredRecipes.filter(recipe =>
@@ -134,6 +158,10 @@ export class View {
             )
         }
 
+        return filteredRecipes
+    }
+
+    filteredBySearchInput(filteredRecipes) {
         // je filtre dans l'input apres 3 caractères
         const searchQuery = this.searchQuery?.toLowerCase() || ""
         if (searchQuery.length >= 3) {
@@ -146,8 +174,7 @@ export class View {
             )
         }
 
-        // afficher les recettes filtrées
-        this.displayRecipes(filteredRecipes, this.createCardRecipe)
+        return filteredRecipes
     }
 
     /**
@@ -178,7 +205,7 @@ export class View {
         })
     }
 
-    // TODO: créer des function a part pour les filtres ex: filteredByIngredients
+    // créer des function a part pour les filtres ex: filteredByIngredients //////
     // TODO: tester la recherche avec "filter" et "for" sur JSBench.ch
     // TODO: documentation
 }
