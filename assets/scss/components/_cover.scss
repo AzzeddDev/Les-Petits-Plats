@@ -1,7 +1,7 @@
 /** Hero **/
 .hero {
   display: flex;
-  height: 92vh;
+  height: 72vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -11,7 +11,9 @@
 }
 
 .contentHero {
+  width: 50%;
   z-index: 5;
+  padding-top: 87px;
 }
 
 .hero:before {
@@ -25,8 +27,8 @@
 
 h1 {
   color: #FFD15B;
-  font-size: 44px;
+  font-size: 40px;
+  line-height: auto;
   font-weight: 400;
-  line-height: 66.24px;
   text-align: center;
 }

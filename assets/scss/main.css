@@ -9,7 +9,7 @@ body {
 /** Hero **/
 .hero {
   display: flex;
-  height: 92vh;
+  height: 72vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,9 @@ body {
 }
 
 .contentHero {
+  width: 50%;
   z-index: 5;
+  padding-top: 87px;
 }
 
 .hero:before {
@@ -33,9 +35,9 @@ body {
 
 h1 {
   color: #FFD15B;
-  font-size: 44px;
+  font-size: 40px;
+  line-height: auto;
   font-weight: 400;
-  line-height: 66.24px;
   text-align: center;
 }
 
@@ -314,6 +316,13 @@ nav {
   font-size: 26px;
   color: #fff;
   text-decoration: none;
+}
+
+.no-recipe-message {
+  color: red;
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 20px;
 }
 
 /*# sourceMappingURL=main.css.map */
