@@ -17,6 +17,11 @@ export class View {
          * afficher les filtres
          */
         this.getDropDowns()
+
+        /**
+         * barre de recherche
+         */
+        this.searchInputIndex()
     }
 
     /**
@@ -32,11 +37,11 @@ export class View {
      * créer les dropdowns
      */
     getDropDowns() {
-        let dropdownIngredient = new Dropdown("Ingredients",(type, selectedText) => {this.updateSelectedItems(type, selectedText)})
+        let dropdownIngredient = new Dropdown("Ingredients",(type, selectedText, isRemoving) => {this.updateSelectedItems(type, selectedText, isRemoving)})
         dropdownIngredient.createDropDown(this)
-        let dropdownAppliance = new Dropdown("Appliances",(type, selectedText) => {this.updateSelectedItems(type, selectedText)})
+        let dropdownAppliance = new Dropdown("Appliances",(type, selectedText, isRemoving) => {this.updateSelectedItems(type, selectedText, isRemoving)})
         dropdownAppliance.createDropDown(this)
-        let dropdownUstensils = new Dropdown("Ustensils",(type, selectedText) => {this.updateSelectedItems(type, selectedText)})
+        let dropdownUstensils = new Dropdown("Ustensils",(type, selectedText, isRemoving) => {this.updateSelectedItems(type, selectedText, isRemoving)})
         dropdownUstensils.createDropDown(this)
     }
 
@@ -44,18 +49,33 @@ export class View {
      * fonctionne pour mettre a jour les item sélectionner
      * @param type
      * @param selectedText
+     * @param isRemoving
      */
-    updateSelectedItems(type, selectedText) {
-        switch (type) {
-            case "Ingredients":
-                this.selectedIngredientsList.push(selectedText)
-                break
-            case "Appliances":
-                this.selectedApplianceList.push(selectedText)
-                break
-            case "Ustensils":
-                this.selectedUstensilsList.push(selectedText)
-                break
+    updateSelectedItems(type, selectedText, isRemoving = false) {
+        if (!isRemoving) {
+            switch (type) {
+                case "Ingredients":
+                    this.selectedIngredientsList.push(selectedText)
+                    break
+                case "Appliances":
+                    this.selectedApplianceList.push(selectedText)
+                    break
+                case "Ustensils":
+                    this.selectedUstensilsList.push(selectedText)
+                    break
+            }
+        } else {
+            switch (type) {
+                case "Ingredients":
+                    this.selectedIngredientsList = this.selectedIngredientsList.filter((text) => text != selectedText)
+                    break
+                case "Appliances":
+                    this.selectedApplianceList = this.selectedApplianceList.filter((text) => text != selectedText)
+                    break
+                case "Ustensils":
+                    this.selectedUstensilsList = this.selectedUstensilsList.filter((text) => text != selectedText)
+                    break
+            }
         }
 
         console.log('Ingredients List:', this.selectedIngredientsList)
@@ -114,13 +134,26 @@ export class View {
             )
         }
 
-        console.log(filteredRecipes, 'Filtered Recipes')
-        console.log(recipes, 'Recipes')
+        // je filtre dans l'input apres 3 caractères
+        const searchQuery = this.searchQuery?.toLowerCase() || ""
+        if (searchQuery.length >= 3) {
+            filteredRecipes = filteredRecipes.filter(recipe =>
+                recipe.name.toLowerCase().includes(searchQuery) ||
+                recipe.description.toLowerCase().includes(searchQuery) ||
+                recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(searchQuery)) ||
+                recipe.appliance.toLowerCase().includes(searchQuery) ||
+                recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(searchQuery))
+            )
+        }
 
         // afficher les recettes filtrées
         this.displayRecipes(filteredRecipes, this.createCardRecipe)
     }
 
+    /**
+     * afficher le nombre de recettes
+     * @param recipes
+     */
     showNumberRecipes(recipes) {
         const numberDiv = document.querySelector('.numberFound')
 
@@ -128,4 +161,24 @@ export class View {
             numberDiv.textContent = `${recipes.length} Recettes`
         }
     }
+
+    searchInputIndex() {
+        const searchInputIndex = document.querySelector('.searchBar__input')
+
+        searchInputIndex.addEventListener('input', (event) => {
+            const inputValue = event.target.value
+
+            if (inputValue.length >= 3) {
+                this.searchQuery = inputValue
+            } else {
+                this.searchQuery = ""
+            }
+
+            this.filterRecipes()
+        })
+    }
+
+    // TODO: créer des function a part pour les filtres ex: filteredByIngredients
+    // TODO: tester la recherche avec "filter" et "for" sur JSBench.ch
+    // TODO: documentation
 }
