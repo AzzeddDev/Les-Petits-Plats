@@ -119,7 +119,7 @@ export default class Dropdown {
             })
         })
 
-        this.filterItemsList()
+        this.filterItemsList(searchInput, ulGroupe)
     }
 
     /**
@@ -231,25 +231,26 @@ export default class Dropdown {
         this.callback(this.type, itemText, true)
     }
 
+
     /**
      * fonction pour filtrer les items
+     * @param searchInput
+     * @param ulGroupe
      */
-    filterItemsList() {
-        const searchInput = document.querySelector(".search-input")
-
-        // ajouter un addEventListener sur input
-        searchInput.addEventListener("input", ()=>{
+    filterItemsList(searchInput, ulGroupe) {
+        // ajouter un addEventListener sur l'input spécifique à cette instance
+        searchInput.addEventListener("input", () => {
             const query = searchInput.value.toLowerCase()
 
-            // commencer le filtering apres 3 caractères
+            // commencer le filtering après 3 caractères
             if (query.length < 3) {
-                this.hiddenList.querySelectorAll("li").forEach(item => {
+                ulGroupe.querySelectorAll("li").forEach(item => {
                     item.style.display = "block"
                 })
                 return
             }
 
-            this.hiddenList.querySelectorAll("li").forEach(item => {
+            ulGroupe.querySelectorAll("li").forEach(item => {
                 const itemText = item.textContent.toLowerCase()
                 if (itemText.includes(query)) {
                     item.style.display = "block"
