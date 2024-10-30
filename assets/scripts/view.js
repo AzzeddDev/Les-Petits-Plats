@@ -98,7 +98,10 @@ export class View {
         if (recipes.length === 0) {
             recipesContainer.innerHTML =
                 `
-                    <p class="no-recipe-message">Aucune recette ne correspond à votre recherche.</p>
+                    <div class="noRecipeMessage">
+                        <img class="imgNoRecipe" src="../../assets/img/svg/noResult.svg" alt="image qui affiche aucun résultats">
+                        <p class="message">Aucune recette ne correspond à votre recherche.</p>
+                    </div>
                 `
         } else {
             // vider l'HTML
