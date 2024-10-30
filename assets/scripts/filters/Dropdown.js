@@ -5,6 +5,7 @@ export default class Dropdown {
         this.callback = callback
         this.selectedItem = []
         this.type = type
+        this.handleOutsideClick = this.handleOutsideClick.bind(this)
     }
 
     /**
@@ -146,6 +147,18 @@ export default class Dropdown {
         // rotation de la fleche
         const arrow = this.hiddenList.parentElement.querySelector('.fa-chevron-down')
         arrow.classList.toggle('rotate')
+
+        if (this.hiddenList.classList.contains('show')) {
+            document.addEventListener('click', this.handleOutsideClick)
+        } else {
+            document.removeEventListener('click', this.handleOutsideClick)
+        }
+    }
+
+    handleOutsideClick(event) {
+        if (!this.hiddenList.contains(event.target) && !this.hiddenList.parentElement.contains(event.target)) {
+            this.toggle()
+        }
     }
 
     /**
