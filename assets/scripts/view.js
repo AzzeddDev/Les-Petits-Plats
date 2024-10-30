@@ -99,7 +99,7 @@ export class View {
             recipesContainer.innerHTML =
                 `
                     <div class="noRecipeMessage">
-                        <img class="imgNoRecipe" src="../../assets/img/svg/noResult.svg" alt="image qui affiche aucun résultats">
+                        <img class="imgNoRecipe" src="assets/img/svg/noResult.svg" alt="image qui affiche aucun résultats">
                         <p class="message">Aucune recette ne correspond à votre recherche.</p>
                     </div>
                 `
