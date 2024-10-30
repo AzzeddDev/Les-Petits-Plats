@@ -165,20 +165,28 @@ export class View {
     }
 
     filteredBySearchInput(filteredRecipes) {
-        // je filtre dans l'input apres 3 caractères
         const searchQuery = this.searchQuery?.toLowerCase() || ""
+        const result = []
+
         if (searchQuery.length >= 3) {
-            filteredRecipes = filteredRecipes.filter(recipe =>
-                recipe.name.toLowerCase().includes(searchQuery) ||
-                recipe.description.toLowerCase().includes(searchQuery) ||
-                recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(searchQuery)) ||
-                recipe.appliance.toLowerCase().includes(searchQuery) ||
-                recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(searchQuery))
-            )
+            filteredRecipes.forEach(recipe => {
+                if (
+                    recipe.name.toLowerCase().includes(searchQuery) ||
+                    recipe.description.toLowerCase().includes(searchQuery) ||
+                    recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(searchQuery)) ||
+                    recipe.appliance.toLowerCase().includes(searchQuery) ||
+                    recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(searchQuery))
+                ) {
+                    result.push(recipe)
+                }
+            })
+        } else {
+            return filteredRecipes
         }
 
-        return filteredRecipes
+        return result
     }
+
 
     /**
      * afficher le nombre de recettes
