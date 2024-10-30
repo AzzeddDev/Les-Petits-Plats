@@ -13,8 +13,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("../../assets/img/webp/Recette05.webp");
+  background-image: url("/assets/img/webp/Recette05.webp");
   background-size: cover;
+  background-position: center;
   margin-top: -87px;
 }
 
@@ -318,11 +319,22 @@ nav {
   text-decoration: none;
 }
 
-.no-recipe-message {
-  color: red;
+.noRecipeMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.noRecipeMessage .message {
+  font-family: "Manrope", sans-serif;
+  color: #000;
   font-size: 1.2em;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+.noRecipeMessage .imgNoRecipe {
+  height: 350px;
 }
 
 /*# sourceMappingURL=main.css.map */
