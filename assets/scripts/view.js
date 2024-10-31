@@ -169,7 +169,8 @@ export class View {
         const result = []
 
         if (searchQuery.length >= 3) {
-            filteredRecipes.forEach(recipe => {
+            for (let i = 0; i < filteredRecipes.length; i++) {
+                const recipe = filteredRecipes[i]
                 if (
                     recipe.name.toLowerCase().includes(searchQuery) ||
                     recipe.description.toLowerCase().includes(searchQuery) ||
@@ -179,13 +180,14 @@ export class View {
                 ) {
                     result.push(recipe)
                 }
-            })
+            }
         } else {
             return filteredRecipes
         }
 
         return result
     }
+
 
 
     /**
