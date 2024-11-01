@@ -37,12 +37,20 @@ export class View {
      * créer les dropdowns
      */
     getDropDowns() {
-        let dropdownIngredient = new Dropdown("Ingredients",(type, selectedText, isRemoving) => {this.updateSelectedItems(type, selectedText, isRemoving)})
-        dropdownIngredient.createDropDown(this)
-        let dropdownAppliance = new Dropdown("Appliances",(type, selectedText, isRemoving) => {this.updateSelectedItems(type, selectedText, isRemoving)})
-        dropdownAppliance.createDropDown(this)
-        let dropdownUstensils = new Dropdown("Ustensils",(type, selectedText, isRemoving) => {this.updateSelectedItems(type, selectedText, isRemoving)})
-        dropdownUstensils.createDropDown(this)
+        this.dropdownIngredient = new Dropdown("Ingredients", (type, selectedText, isRemoving) => {
+            this.updateSelectedItems(type, selectedText, isRemoving)
+        })
+        this.dropdownIngredient.createDropDown(this)
+
+        this.dropdownAppliance = new Dropdown("Appliances", (type, selectedText, isRemoving) => {
+            this.updateSelectedItems(type, selectedText, isRemoving)
+        })
+        this.dropdownAppliance.createDropDown(this)
+
+        this.dropdownUstensil = new Dropdown("Ustensils", (type, selectedText, isRemoving) => {
+            this.updateSelectedItems(type, selectedText, isRemoving)
+        })
+        this.dropdownUstensil.createDropDown(this)
     }
 
     /**
@@ -117,6 +125,9 @@ export class View {
         this.showNumberRecipes(recipes)
     }
 
+    /**
+     * Function pour filtrer les recettes
+     */
     filterRecipes() {
         let filteredRecipes = recipes
 
@@ -125,10 +136,40 @@ export class View {
         filteredRecipes = this.filteredByUstensils(filteredRecipes)
         filteredRecipes = this.filteredBySearchInput(filteredRecipes)
 
+        // updated les dropdowns
+        this.updateDropdowns(filteredRecipes)
+
         // afficher les recettes filtrées
         this.displayRecipes(filteredRecipes, this.createCardRecipe)
     }
 
+    /**
+     * Function qui gere la mise a jour des dropdown
+     * @param filteredRecipes
+     */
+    updateDropdowns(filteredRecipes) {
+        // Créer un nouveau set depuis les recettes filtrer
+        const ingredients = new Set()
+        const appliances = new Set()
+        const utensils = new Set()
+
+        filteredRecipes.forEach(recipe => {
+            recipe.ingredients.forEach(ing => ingredients.add(ing.ingredient))
+            appliances.add(recipe.appliance)
+            recipe.ustensils.forEach(ust => utensils.add(ust))
+        })
+
+        // Updater chaque dropdown avec des items unique
+        this.dropdownIngredient.updateItems(Array.from(ingredients))
+        this.dropdownAppliance.updateItems(Array.from(appliances))
+        this.dropdownUstensil.updateItems(Array.from(utensils))
+    }
+
+    /**
+     * Function qui filtre par Ingredients
+     * @param filteredRecipes
+     * @returns {*}
+     */
     filteredByIngredients(filteredRecipes) {
         if (this.selectedIngredientsList.length > 0) {
             return filteredRecipes.filter(recipe =>
@@ -140,6 +181,11 @@ export class View {
         return filteredRecipes
     }
 
+    /**
+     * Function qui filtre par Appliance
+     * @param filteredRecipes
+     * @returns {*}
+     */
     filteredByAppliance(filteredRecipes) {
         // je filtre par appareil
         if (this.selectedApplianceList.length > 0) {
@@ -151,6 +197,11 @@ export class View {
         return filteredRecipes
     }
 
+    /**
+     * Function qui filtre par ustensils
+     * @param filteredRecipes
+     * @returns {*}
+     */
     filteredByUstensils(filteredRecipes) {
         // je filtre par ustensiles
         if (this.selectedUstensilsList.length > 0) {
@@ -164,6 +215,11 @@ export class View {
         return filteredRecipes
     }
 
+    /**
+     * Function qui filtre les recettes depuis la barre de recherche
+     * @param filteredRecipes
+     * @returns {*}
+     */
     filteredBySearchInput(filteredRecipes) {
         // je filtre dans l'input apres 3 caractères
         const searchQuery = this.searchQuery?.toLowerCase() || ""
@@ -192,6 +248,9 @@ export class View {
         }
     }
 
+    /**
+     * Function qui gère la barre de recherche avec une longeur de 3 caractere
+     */
     searchInputIndex() {
         const searchInputIndex = document.querySelector('.searchBar__input')
 
@@ -207,8 +266,4 @@ export class View {
             this.filterRecipes()
         })
     }
-
-    // créer des function a part pour les filtres ex: filteredByIngredients //////
-    // TODO: tester la recherche avec "filter" et "for" sur JSBench.ch
-    // TODO: documentation
 }

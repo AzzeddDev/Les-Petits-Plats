@@ -155,6 +155,10 @@ export default class Dropdown {
         }
     }
 
+    /**
+     * Function pour cliquer en dehors des Dropdown
+     * @param event
+     */
     handleOutsideClick(event) {
         if (!this.hiddenList.contains(event.target) && !this.hiddenList.parentElement.contains(event.target)) {
             this.toggle()
@@ -272,5 +276,27 @@ export default class Dropdown {
                 }
             })
         })
+    }
+
+    /**
+     * Updater les items dans le Dropdown
+     * @param newItems
+     */
+    updateItems(newItems) {
+        // vider les items en cours
+        this.hiddenList.innerHTML = ""
+
+        // créer un nouveau ul
+        const ulGroupe = document.createElement("ul")
+
+        // afficher les items en cachant les items sélectionnées
+        // Display the items in the dropdown, excluding already selected items
+        this.showItems(newItems.filter(item => !this.selectedItem.includes(item)), ulGroupe)
+
+        // append la liste updater
+        this.hiddenList.appendChild(ulGroupe)
+
+        // recréer la barre de recherche
+        this.createSearchInput(ulGroupe)
     }
 }
