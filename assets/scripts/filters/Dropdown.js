@@ -202,7 +202,7 @@ export default class Dropdown {
         itemFilterSelectedDiv.innerHTML = ''
 
         // boucle pour rajouter l'item avec un addEvent pour supprimer
-        this.selectedItem.forEach((itemText, index) => {
+        this.selectedItem.forEach((itemText) => {
             const itemDiv = document.createElement('div')
             const itemName = document.createElement('div')
             const xMark = document.createElement('div')

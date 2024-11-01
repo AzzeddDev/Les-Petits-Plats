@@ -254,15 +254,35 @@ export class View {
     searchInputIndex() {
         const searchInputIndex = document.querySelector('.searchBar__input')
 
+        const clearButton = document.createElement('span')
+        clearButton.className = 'clear-button'
+        clearButton.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+        clearButton.style.display = 'none'
+
+        // append le bouton clear
+        searchInputIndex.parentNode.appendChild(clearButton)
+
         searchInputIndex.addEventListener('input', (event) => {
             const inputValue = event.target.value
 
+            // afficher ou cacher le bouton apres 3 caractères
             if (inputValue.length >= 3) {
                 this.searchQuery = inputValue
+                clearButton.style.display = 'inline'
             } else {
                 this.searchQuery = ""
+                clearButton.style.display = 'none'
             }
 
+            // filter recipes based on input
+            this.filterRecipes()
+        })
+
+        // vider quand y a un clique
+        clearButton.addEventListener('click', () => {
+            searchInputIndex.value = ''
+            this.searchQuery = ""
+            clearButton.style.display = 'none'
             this.filterRecipes()
         })
     }
