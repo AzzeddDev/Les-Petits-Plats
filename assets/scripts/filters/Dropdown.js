@@ -152,7 +152,7 @@ export default class Dropdown {
     }
 
     /**
-     * joute l'événement de suppression au bouton clearButton
+     * Ajoute l'événement de suppression au bouton clearButton
      * @param clearButton
      * @param searchInput
      */
@@ -344,7 +344,6 @@ export default class Dropdown {
         const ulGroupe = document.createElement("ul")
 
         // afficher les items en cachant les items sélectionnées
-        // Display the items in the dropdown, excluding already selected items
         this.showItems(newItems.filter(item => !this.selectedItem.includes(item)), ulGroupe)
 
         // append la liste updater
