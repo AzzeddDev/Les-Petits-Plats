@@ -75,52 +75,97 @@ export default class Dropdown {
      * @param ulGroupe
      */
     createSearchInput(ulGroupe) {
-        // ajouter un champ de recherche en haut du dropdown
+        // créer et configurer le conteneur de recherche
+        const searchContainer = this.createSearchContainer()
+
+        // créer l'input de recherche et le bouton de suppression
+        const searchInput = this.createSearchInputField(searchContainer)
+        const clearButton = this.createClearButton(searchContainer, searchInput)
+
+        // insérer la div de recherche avant les ul
+        this.hiddenList.insertBefore(searchContainer, ulGroupe)
+
+        // configurer les événements d'interaction
+        this.addSearchInputEvents(searchInput, clearButton, ulGroupe)
+        this.addClearButtonEvent(clearButton, searchInput)
+    }
+
+    /**
+     * créer le conteneur de recherche et le retourne
+     * @returns {HTMLDivElement}
+     */
+    createSearchContainer() {
         const searchContainer = document.createElement('div')
-        const searchFlex = document.createElement("div")
-        const searchInput = document.createElement('input')
-        const clearButton = document.createElement('span')
+        const searchFlex = document.createElement('div')
 
         searchContainer.className = 'searchContainer'
         searchFlex.className = 'searchFlex'
+        searchContainer.appendChild(searchFlex)
+
+        return searchContainer
+    }
+
+    /**
+     * créer l'input de recherche et l'ajoute au conteneur
+     * @param searchContainer
+     * @returns {HTMLInputElement}
+     */
+    createSearchInputField(searchContainer) {
+        const searchInput = document.createElement('input')
         searchInput.className = 'search-input'
         searchInput.placeholder = `Rechercher ${this.type.toLowerCase()}`
+        searchContainer.querySelector('.searchFlex').appendChild(searchInput)
 
-        // Add the clear button (X) next to the search input
+        return searchInput
+    }
+
+    /**
+     * créer le bouton de suppression (X) et l'ajoute au conteneur
+     * @param searchContainer
+     * @param searchInput
+     * @returns {HTMLSpanElement}
+     */
+    createClearButton(searchContainer, searchInput) {
+        const clearButton = document.createElement('span')
         clearButton.className = 'clear-button'
-        clearButton.textContent = 'X'  // X character
+        clearButton.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+        clearButton.style.display = 'none'  // Initialement caché
 
-        // Hide the clear button initially
-        clearButton.style.display = 'none'
+        searchContainer.querySelector('.searchFlex').appendChild(clearButton)
 
-        // append child input sur le conteneur
-        searchContainer.appendChild(searchFlex).appendChild(searchInput)
-        searchContainer.appendChild(searchFlex).appendChild(clearButton)
-
-        // insérer la div avant les ul
-        this.hiddenList.insertBefore(searchContainer, ulGroupe)
-
-        // afficher le bouton X quand l'input n'est pas vide
+        // Affiche le bouton X quand l'input n'est pas vide
         searchInput.addEventListener('input', () => {
-            if (searchInput.value.length > 0) {
-                clearButton.style.display = 'inline'
-            } else {
-                clearButton.style.display = 'none'
-            }
+            clearButton.style.display = searchInput.value.length > 0 ? 'inline' : 'none'
         })
 
-        // vider le champ en cliquant sur X
+        return clearButton
+    }
+
+    /**
+     * ajoute l'événement d'écoute à l'input de recherche pour filtrer la liste
+     * @param searchInput
+     * @param clearButton
+     * @param ulGroupe
+     */
+    addSearchInputEvents(searchInput, clearButton, ulGroupe) {
+        this.filterItemsList(searchInput, ulGroupe)
+    }
+
+    /**
+     * joute l'événement de suppression au bouton clearButton
+     * @param clearButton
+     * @param searchInput
+     */
+    addClearButtonEvent(clearButton, searchInput) {
         clearButton.addEventListener('click', () => {
             searchInput.value = ''
             clearButton.style.display = 'none'
 
-            // Show all items after clearing
+            // Afficher tous les items après avoir effacé le champ
             this.hiddenList.querySelectorAll("li").forEach(item => {
                 item.style.display = "block"
             })
         })
-
-        this.filterItemsList(searchInput, ulGroupe)
     }
 
     /**
@@ -201,26 +246,35 @@ export default class Dropdown {
         // vider l'affichage
         itemFilterSelectedDiv.innerHTML = ''
 
-        // boucle pour rajouter l'item avec un addEvent pour supprimer
-        this.selectedItem.forEach((itemText) => {
-            const itemDiv = document.createElement('div')
-            const itemName = document.createElement('div')
-            const xMark = document.createElement('div')
-            xMark.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+        // vérifier si des items sont sélectionnés
+        if (this.selectedItem.length === 0) {
+            // masquer le conteneur si aucun élément n'est sélectionné
+            itemFilterSelectedDiv.style.display = 'none'
+        } else {
+            // afficher le conteneur et ajouter les éléments sélectionnés
+            itemFilterSelectedDiv.style.display = 'flex'
 
-            itemDiv.className = 'selectedItem'
-            itemName.textContent = itemText
-            xMark.className = 'xMark'
+            // boucle pour rajouter chaque item avec un bouton pour supprimer
+            this.selectedItem.forEach((itemText) => {
+                const itemDiv = document.createElement('div')
+                const itemName = document.createElement('div')
+                const xMark = document.createElement('div')
+                xMark.innerHTML = `<i class="fa-solid fa-xmark"></i>`
 
-            // supprimer l'élément au clic
-            xMark.addEventListener('click', () => {
-                this.removeItem(itemText, itemFilterSelectedDiv)
+                itemDiv.className = 'selectedItem'
+                itemName.textContent = itemText
+                xMark.className = 'xMark'
+
+                // supprimer l'élément au clic
+                xMark.addEventListener('click', () => {
+                    this.removeItem(itemText, itemFilterSelectedDiv)
+                })
+
+                // ajouter l'item et le xMark dans itemFilterSelectedDiv
+                itemFilterSelectedDiv.appendChild(itemDiv).appendChild(itemName)
+                itemFilterSelectedDiv.appendChild(itemDiv).appendChild(xMark)
             })
-
-            // ajouter l'item et le xMark dans le itemFilterSelectedDiv
-            itemFilterSelectedDiv.appendChild(itemDiv).appendChild(itemName)
-            itemFilterSelectedDiv.appendChild(itemDiv).appendChild(xMark)
-        })
+        }
     }
 
     /**
