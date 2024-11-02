@@ -23,7 +23,7 @@ export function cardTemplate(recipe) {
     timer.className = "timer"
     timer.textContent = recipe.time + "min"
 
-    // changer extension img a .webp
+    // change image extension to .webp
     const imagePath = recipe.image.replace(/\.[^/.]+$/, ".webp")
     img.src = `assets/img/webp/${imagePath}`
     img.alt = recipe.name
@@ -33,18 +33,41 @@ export function cardTemplate(recipe) {
     const title = document.createElement("h2")
     title.textContent = recipe.name
 
-    // description
+    // description div
     const recette = document.createElement("span")
     recette.textContent = "recette"
     recette.className = "titreContenu"
-    const description = document.createElement("p")
-    description.className = "description"
-    let truncatedDescription = recipe.description
 
-    if (truncatedDescription.length > maxLength) {
-        truncatedDescription = truncatedDescription.substring(0, maxLength) + "..."
-    }
-    description.textContent = truncatedDescription
+    const description = document.createElement("div")
+    description.className = "description"
+
+    // créer la balise p et span pour la paragraph et le bouton
+    const descriptionText = document.createElement("p")
+    const spanParagraph = document.createElement("span")
+
+    let isTruncated = true
+    const truncatedDescription = recipe.description.length > maxLength
+        ? recipe.description.substring(0, maxLength) + "..."
+        : recipe.description
+
+    spanParagraph.textContent = truncatedDescription
+    descriptionText.className = "description"
+
+    // lire plus button
+    const readMoreButton = document.createElement("span")
+    readMoreButton.className = "read-more-btn"
+    readMoreButton.textContent = "Lire plus"
+
+    // un click sur le bouton lire plus
+    readMoreButton.addEventListener("click", () => {
+        isTruncated = !isTruncated
+        spanParagraph.textContent = isTruncated ? truncatedDescription : recipe.description
+        readMoreButton.textContent = isTruncated ? "Lire plus" : "Lire moins"
+    })
+
+    // append le bouton + la paragraph
+    description.appendChild(descriptionText).appendChild(spanParagraph)
+    description.appendChild(descriptionText).appendChild(readMoreButton)
 
     // ingredients loop
     const ingredientsList = document.createElement("div")
@@ -61,6 +84,7 @@ export function cardTemplate(recipe) {
         ingredientsList.appendChild(ingredientCol).appendChild(ingredientItem)
     })
 
+    // appending les elements au card
     recipeCard.appendChild(divImg).appendChild(timer)
     recipeCard.appendChild(divImg).appendChild(img)
     recipeCard.appendChild(infoDiv).appendChild(title)
