@@ -2,6 +2,9 @@
 @import "base/typography";
 @import "base/base";
 
+// utils
+@import "utils/variables";
+
 // Components
 @import "components/buttons";
 @import "components/cover";
@@ -16,6 +19,3 @@
 
 // Pages
 @import "pages/home";
-
-// utils
-@import "utils/variables";

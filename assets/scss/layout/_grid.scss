@@ -17,6 +17,17 @@
 
   & .infos {
     padding: 26px;
+
+    & .read-more-btn {
+      padding-left: 4px;
+      cursor: pointer;
+      color: #3367D1;
+
+      &:hover {
+        color: #3367D1;
+        text-decoration: underline;
+      }
+    }
   }
 
   & .divImg {
