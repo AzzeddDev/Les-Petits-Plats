@@ -5,4 +5,4 @@ Création de deux algorithmes de recherche pour obtenir la version la plus optim
 
 ## Documentation
 * Résultat [Voir le benchmark des algorithmes](https://jsben.ch/HAhnM)
-* Documentation [Voir le document d'investigation]()
+* Documentation [Voir le document d'investigation](Fiche_d'investigation.pdf)
