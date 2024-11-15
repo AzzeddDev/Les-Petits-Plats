@@ -27,36 +27,40 @@
         </nav>
     </header>
 
-    <section>
-        <div class="container-fluid hero">
-            <div class="container d-flex flex-column align-items-center">
-                <div class="contentHero col-lg-8 col-12">
-                    <h1 class="bigTitle text-center mb-4">
-                        CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES
-                    </h1>
-                    <div class="searchBar">
-                        <input class="form-control mr-sm-2 searchBar__input" type="search" placeholder="Rechercher une recette, un ingrédient, ..." aria-label="Search">
-                        <button class="searchBar__button" type="submit"><i class="fa fa-search"></i></button>
+    <main>
+        <section>
+            <div class="container-fluid hero">
+                <div class="container d-flex flex-column align-items-center">
+                    <div class="contentHero col-lg-8 col-12">
+                        <h1 class="bigTitle text-center mb-4">
+                            CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES
+                        </h1>
+                        <div class="searchBar">
+                            <input class="form-control mr-sm-2 searchBar__input" type="search" placeholder="Rechercher une recette, un ingrédient, ..." aria-label="Search">
+                            <button class="searchBar__button" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section>
-        <div class="container p-0">
-            <div class="col-12 filterResult d-flex justify-content-between align-items-center">
-                <div class="filters"><!-- filters here --></div>
-                <div class="numberFound"><!-- result number here --></div>
+        <section>
+            <div class="container p-0">
+                <div class="col-12 filterResult d-flex justify-content-between align-items-center">
+                    <div class="filters"><!-- filters here --></div>
+                    <div class="numberFound"><!-- result number here --></div>
+                </div>
+                <div class="selectionDisplay">
+                    <!-- li selected will be shown here -->
+                </div>
             </div>
-            <div class="selectionDisplay">
-                <!-- li selected will be shown here -->
+            <div class="container grid">
+                <div class="row" id="recipe-container"><!-- recipe here --></div>
             </div>
-        </div>
-        <div class="container grid">
-            <div class="row" id="recipe-container"><!-- recipe here --></div>
-        </div>
-    </section>
+        </section>
+    </main>
+
+    <footer><p class="footerPar">2024 Les Petits Plats - Tous droits réservés ©</p></footer>
 
     <!-- Main script -->
     <script src="assets/scripts/main.js" type="module"></script>
